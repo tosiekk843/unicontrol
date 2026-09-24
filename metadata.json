@@ -1,0 +1,6 @@
+{
+  "name": "UniControl - System Ewidencji Czasu Pracy",
+  "description": "Nowoczesne oprogramowanie SaaS do monitorowania czasu pracy i aktywności pracowników z kioskiem na Androida i kalkulatorem wyceny.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
