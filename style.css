@@ -71,6 +71,7 @@ input, select, textarea {
 
 .section {
   padding: 70px 0;
+  scroll-margin-top: 80px;
 }
 
 .bg-white {
@@ -140,6 +141,37 @@ input, select, textarea {
   background-color: var(--bg-alt);
 }
 
+.btn-offer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-decoration: none;
+  padding: 12px 26px;
+  line-height: 1.25;
+}
+
+.btn-arrow-down {
+  color: var(--primary);
+  display: inline-block;
+  animation: bounceDown 1.8s ease-in-out infinite;
+  transition: transform 0.2s ease;
+}
+
+.btn-offer:hover .btn-arrow-down {
+  transform: translateY(3px);
+}
+
+@keyframes bounceDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
 .btn-sm {
   padding: 8px 14px;
   font-size: 13px;
@@ -161,10 +193,17 @@ input, select, textarea {
   z-index: 100;
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
   height: 72px;
   display: flex;
   align-items: center;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.header.header-hidden {
+  transform: translateY(-100%);
 }
 
 .header-inner {
@@ -252,6 +291,81 @@ input, select, textarea {
 /* HERO SECTION */
 .hero {
   padding: 60px 0;
+}
+
+/* WERSJA MOBILNA: UKRYCIE ZAZNACZONYCH ELEMENTÓW I TŁO POD TEKSTEM */
+@media (max-width: 991px) {
+  .hero .kicker {
+    display: none !important;
+  }
+  .hero-desc {
+    display: none !important;
+  }
+  .hero-highlights {
+    display: none !important;
+  }
+  .hero-graphic-wrap {
+    display: none !important;
+  }
+
+  .hero {
+    min-height: calc(100svh - 72px);
+    min-height: calc(100vh - 72px);
+    padding: 32px 16px 44px;
+    background-image: url('render-grafiki.png'), url('render%20grafiki.png'), url('/render-grafiki.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: min(450px, 94%) auto;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-grid {
+    gap: 0;
+    width: 100%;
+  }
+
+  .hero-text {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    font-size: 26px;
+    margin: 0 0 20px;
+    line-height: 1.25;
+    text-align: center;
+    color: var(--navy-950);
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(0.5px);
+    -webkit-backdrop-filter: blur(0.5px);
+    padding: 14px 18px;
+    border-radius: 18px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+  }
+
+  .hero-cta {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-cta .btn {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
 }
 
 .hero-grid {
@@ -1270,9 +1384,9 @@ input, select, textarea {
 }
 
 .savings-metrics {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   margin-bottom: 14px;
 }
 
@@ -1280,26 +1394,35 @@ input, select, textarea {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(16, 185, 129, 0.25);
   border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
 }
 
 .metric-lbl {
-  font-size: 11px;
+  font-size: 13px;
   color: #a7f3d0;
   text-transform: uppercase;
-  margin-bottom: 2px;
+  margin-bottom: 0;
   font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .metric-val {
   font-size: 16px;
   font-weight: 800;
   color: #ffffff;
+  white-space: nowrap;
+  text-align: right;
 }
 
 .metric-val.green-loud {
   color: #34d399;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .savings-formula-note {
@@ -1309,6 +1432,55 @@ input, select, textarea {
   padding: 8px 10px;
   border-radius: var(--radius-sm);
   line-height: 1.4;
+}
+
+/* WERSJA MOBILNA: Rozłożenie treści na boki w sekcji zamiast kafelków */
+@media (max-width: 768px) {
+  .savings-card {
+    padding: 16px 14px;
+  }
+
+  .screaming-green-box {
+    padding: 12px 8px;
+    margin-bottom: 12px;
+  }
+
+  .screaming-green-val {
+    font-size: 34px;
+  }
+
+  .screaming-green-sub {
+    font-size: 11px;
+    letter-spacing: 0.03em;
+  }
+
+  .savings-metrics {
+    gap: 0;
+    border-top: 1px solid rgba(16, 185, 129, 0.25);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 2px 0;
+    margin-bottom: 12px;
+  }
+
+  .metric-tile {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.12);
+    border-radius: 0;
+    padding: 11px 4px;
+  }
+
+  .metric-tile:last-child {
+    border-bottom: none;
+  }
+
+  .metric-lbl {
+    font-size: 12.5px;
+  }
+
+  .metric-val {
+    font-size: 15px;
+  }
 }
 
 /* PODSUMOWANIE ABONAMENTU UNICONTROL (BEZ VAT) */
@@ -1614,11 +1786,11 @@ input, select, textarea {
   display: grid;
   grid-template-columns: 1fr;
   gap: 32px;
-  margin-bottom: 40px;
+  margin-bottom: 0;
 }
 
 @media (min-width: 768px) {
-  .footer-grid { grid-template-columns: 1.6fr 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
 }
 
 .footer-brand {
@@ -1628,7 +1800,7 @@ input, select, textarea {
 
 .footer-desc {
   margin-bottom: 14px;
-  max-width: 380px;
+  max-width: 540px;
 }
 
 .footer h4 {
