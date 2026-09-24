@@ -2633,3 +2633,130 @@ input, select, textarea {
   to { width: 0%; }
 }
 
+/* PŁYWAJĄCY PRZYCISK TELEFONU W PRAWYM DOLNYM ROGU */
+.floating-call-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 58px;
+  height: 58px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45), 0 2px 6px rgba(0, 0, 0, 0.12);
+  z-index: 999;
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.floating-call-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 28px rgba(16, 185, 129, 0.55), 0 4px 10px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+}
+
+.floating-call-btn:active {
+  transform: scale(0.95);
+}
+
+.floating-call-btn .call-icon {
+  width: 26px;
+  height: 26px;
+  color: #ffffff;
+  animation: phoneVibe 3.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Subtelny pulsujący pierścień */
+.call-pulse-ring {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid #10b981;
+  opacity: 0;
+  animation: callPulse 2.8s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes callPulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  60% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@keyframes phoneVibe {
+  0%, 12%, 88%, 100% {
+    transform: rotate(0deg);
+  }
+  2%, 6% {
+    transform: rotate(-14deg);
+  }
+  4%, 8% {
+    transform: rotate(14deg);
+  }
+}
+
+/* Tooltip z numerem telefonu na hover */
+.call-label-tooltip {
+  position: absolute;
+  right: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  background: var(--navy-950);
+  color: #ffffff;
+  padding: 7px 13px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.call-label-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -5px;
+  transform: translateY(-50%);
+  border-width: 5px 0 5px 6px;
+  border-style: solid;
+  border-color: transparent transparent transparent var(--navy-950);
+}
+
+.floating-call-btn:hover .call-label-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+@media (max-width: 768px) {
+  .floating-call-btn {
+    bottom: 20px;
+    right: 18px;
+    width: 54px;
+    height: 54px;
+  }
+  .call-label-tooltip {
+    display: none;
+  }
+}
+
